@@ -1,0 +1,36 @@
+{
+  "name": "swag-labs-test",
+  "version": "1.0.0",
+  "description": "End-to-end testing for Swag Labs application",
+  "main": "index.js",
+  "scripts": {
+    "ui:headed": "playwright test --headed --project=chromium --workers=1 --trace on",
+    "ui:headless": "playwright test",
+    "ui:gui": "playwright test --ui",
+    "ui:desktop": "TEST_ENV=${ENV:=local} playwright test --project=chromium --project=firefox",
+    "ui:devices": "TEST_ENV=${ENV:=local} playwright test --project='Mobile Chrome' --project='iPad Pro'",
+    "ui:debug": "playwright test --debug",
+    "gen:report": "allure serve allure-results",
+    "audit": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiwantha-lakmal/swag-labs-test.git"
+  },
+  "keywords": [
+    "playwright",
+    "swag-labs"
+  ],
+  "author": "Shiwantha Lakmal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shiwantha-lakmal/swag-labs-test/issues"
+  },
+  "homepage": "https://github.com/shiwantha-lakmal/swag-labs-test#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.6.0",
+    "allure-playwright": "^2.12.0",
+    "allure-commandline": "^2.27.0"
+  }
+}
