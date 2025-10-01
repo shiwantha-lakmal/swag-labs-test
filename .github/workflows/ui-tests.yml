@@ -28,10 +28,10 @@ jobs:
       run: npm ci
 
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps chromium
+      run: npx playwright install --with-deps
 
     - name: Run UI tests
-      run: npm run ui:headless -- --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+      run: npm run ui:headless -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --project=chromium
       env:
         CI: true
 
