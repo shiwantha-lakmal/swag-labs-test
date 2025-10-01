@@ -2,6 +2,29 @@
 
 End-to-end test automation framework for Swag Labs application using Playwright.
 
+## Setup Local
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/shiwantha-lakmal/swag-labs-test.git
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   npx playwright install
+   ```
+
+3 **Run tests**
+   ```bash
+   # Run UI tests in headed mode
+   npm run ui:headed
+   
+   # Run API tests
+   npm run api:run
+   ```
+
+
 ## Features
 
 - **Cross-browser/device Testing**
@@ -181,8 +204,6 @@ The Allure report includes:
 
 ## CI/CD Pipeline
 
-GitHub Actions workflow runs UI tests in parallel (2 shards) on PR/push to main. Tests run headless in Chromium with required checks for merging. Test artifacts retained for 7 days.
+GitHub Actions workflow runs UI tests in parallel (2 shards) on PR/push to main. Tests run headless in Chromium with required checks for merging.
+referrence : https://github.com/shiwantha-lakmal/swag-labs-test/actions/runs/18166209791
 
-```yaml
-npm run ui:headless -- --shard=${{ matrix.shard }}/2
-```
