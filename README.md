@@ -22,18 +22,56 @@ End-to-end test automation framework for Swag Labs application using Playwright.
 ```
 swag-labs-test/
 ├── src/
-│   ├── config/         # Environment and page loader configurations
+│   ├── config/         # Environment, data, and page loader configurations
+│   ├── api/           # API clients and base classes
 │   └── gui/            # GUI components
 │       ├── pages/      # Page objects with fluent API
 │       └── panels/     # Reusable UI components (MenuPanel)
-├── tests/              # Test specifications
+├── tests/              # Test specifications (UI and API)
 ├── test-results/       # Test artifacts (reports, traces, etc.)
 └── playwright.config.ts
 ```
 
+## API Testing Framework
+
+The framework includes API testing capabilities using Playwright's API testing features:
+
+### Features
+- **Base Client**: Reusable HTTP client with error handling
+- **Pet Store API**: Example implementation for Petstore API v2
+- **Test Data Generation**: Dynamic test data using @faker-js/faker
+- **Response Validation**: Type-safe response handling
+- **Status Code Verification**: Automatic status code logging
+- **JSON Output**: Formatted response data display
+
+### Results API Test
+```typescript
+GET Request to: https://petstore.swagger.io/v2/pet/2768
+Response status: 200
+
+Fetched Pet Details (ID: 2768):
+{
+  "id": 2768,
+  "name": "Old English Sheepdog",
+  "status": "available",
+  "category": "bear",
+  "tags": "oddball",
+  "photoUrls": "Yes"
+}
+  ✓  1 [chromium] › tests/api-pet.spec.ts:17:7 › Pet Store API Tests › should create and fetch a pet by ID (3.0s
+```
+
 ## Best Practices
 
-1. **Page Objects**
+1. **API Testing**
+   - Use base client for common functionality
+   - Implement type-safe response interfaces
+   - Generate dynamic test data
+   - Handle API errors gracefully
+   - Log response status codes
+   - Verify response data integrity
+
+2. **Page Objects**
    - Use fluent API for better readability
    - Built-in assertions & test data access file
    - Initialize locators at class level
@@ -74,6 +112,9 @@ test('should login successfully', async ({ page }) => {
 ```
 
 ## Available Scripts
+
+### API Testing
+- `npm run api` - Run API tests (Petstore API)
 
 ### Desktop Testing
 - `npm run ui:headed` - Run tests in headed mode (Chrome, single worker, with tracing)
