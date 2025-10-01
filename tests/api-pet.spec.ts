@@ -24,12 +24,9 @@ test.describe('Pet Store API Tests', () => {
     expect(createdPet.name).toBe(newPet.name);
     expect(createdPet.status).toBe(newPet.status);
 
-    
     await new Promise(resolve => setTimeout(resolve, 2000)); // <- Wait ftill system updated
 
-    
     const fetchedPet = await petClient.getPetById(createdPet.id!); // <- Fetch the pet by ID
-    
     
     expect(fetchedPet.id).toBe(createdPet.id); // <- Verify fetched pet matches against created pet
     expect(fetchedPet.name).toBe(createdPet.name);
@@ -39,7 +36,6 @@ test.describe('Pet Store API Tests', () => {
 
   test('should fetch all pending pets and verify status', async () => {
     const pendingPets = await petClient.findPetsByStatus('pending');
-    
     
     expect(pendingPets).toBeDefined(); // <- Verify response
     pendingPets.forEach(pet => {

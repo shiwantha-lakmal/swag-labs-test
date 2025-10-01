@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../src/config/page';
 import { LoginPage } from '@config/page-loader';
 import { getCredentials } from '@config/env.config';
 
@@ -11,93 +11,86 @@ import { getCredentials } from '@config/env.config';
 
 test.describe('Swag Labs Cart Functionality', () => {
 
-  test('should add single product to cart successfully', async ({ page }) => {
+  test('should add single product to cart successfully', async ({ loginPage, productPage }) => {
     const user = getCredentials();
-    
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.verify_productsPageLoaded())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_cartBadgeCount('1'));
+
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.verify_productsPageLoaded()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_cartBadgeCount('1')
   });
 
-  test('should add multiple products to cart successfully', async ({ page }) => {
+  test('should add multiple products to cart successfully', async ({ loginPage, productPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Bike Light'))
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Bolt T-Shirt'))
-      .then(productPage => productPage.verify_cartBadgeCount('3'));
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.step_addProductToCart('Sauce Labs Bike Light')
+    await productPage.step_addProductToCart('Sauce Labs Bolt T-Shirt')
+    await productPage.verify_cartBadgeCount('3')
   });
 
-
-  test('should handle adding same product and remove from cart', async ({ page }) => {
+  test('should handle adding same product and remove from cart', async ({ loginPage, productPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_itemButtonText('Sauce Labs Backpack', 'Remove'))
-      .then(productPage => productPage.verify_cartBadgeCount('1'))
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_itemButtonText('Sauce Labs Backpack', 'Add to cart'))
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_itemButtonText('Sauce Labs Backpack', 'Remove')
+    await productPage.verify_cartBadgeCount('1')
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_itemButtonText('Sauce Labs Backpack', 'Add to cart')
   });
 
-  test('should the cart items be listed under the my-cart page', async ({ page }) => {
+  test('should list items in cart page and remove them', async ({ loginPage, productPage, cartPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_cartBadgeCount('1'))
-      .then(productPage => productPage.step_navigateToCart())
-      .then(cartPage => cartPage.verify_itemInCart('Sauce Labs Backpack'))
-      .then(cartPage => cartPage.step_removeItem('Sauce Labs Backpack'));
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_cartBadgeCount('1')
+    await productPage.step_navigateToCart()
+    await cartPage.verify_itemInCart('Sauce Labs Backpack')
+    await cartPage.step_removeItem('Sauce Labs Backpack')
   });
 
-  test('should the cart items able to remove from the cart', async ({ page }) => {
+  test('should remove items from cart and verify badge count', async ({ loginPage, productPage, cartPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.verify_productsPageLoaded())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_cartBadgeCount('1'))
-      .then(productPage => productPage.step_navigateToCart())
-      .then(cartPage => cartPage.step_removeItem('Sauce Labs Backpack'))
-      .then(cartPage => cartPage.verify_cartBadgeCount('0'));
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.verify_productsPageLoaded()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_cartBadgeCount('1')
+    await productPage.step_navigateToCart()
+    await cartPage.step_removeItem('Sauce Labs Backpack')
+    await cartPage.verify_cartBadgeCount('0')
   });
 
-  test('should the cart items able to checkout successfully', async ({ page }) => {
+  test('should complete checkout process successfully', async ({ loginPage, productPage, cartPage }) => {
     const user = getCredentials();
     
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.step_enterUsername(user.username))
-      .then(loginPage => loginPage.step_enterPassword(user.password))
-      .then(loginPage => loginPage.step_clickLogin())
-      .then(productPage => productPage.verify_productsPageLoaded())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_cartBadgeCount('1'))
-      .then(productPage => productPage.step_navigateToCart())
-      .then(cartPage => cartPage.step_checkout());
+    await loginPage.step_navigate()
+    await loginPage.step_enterUsername(user.username)
+    await loginPage.step_enterPassword(user.password)
+    await loginPage.step_clickLogin()
+    await productPage.verify_productsPageLoaded()
+    await productPage.step_addProductToCart('Sauce Labs Backpack')
+    await productPage.verify_cartBadgeCount('1')
+    await productPage.step_navigateToCart()
+    await cartPage.step_checkout()
   });
 
 });

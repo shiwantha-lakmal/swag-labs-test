@@ -28,7 +28,8 @@ export class BaseClient {
     this.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'api_key': auth || ''
+      'api_key': auth || '',
+      'Authorization': `Bearer ${auth}`
     };
   }
 
@@ -125,7 +126,6 @@ export class BaseClient {
    * Normalize endpoint by handling trailing slashes
    */
   private normalizeEndpoint(endpoint: string): string {
-    // Ensure there's a slash between base URL and endpoint
     return endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   }
 
