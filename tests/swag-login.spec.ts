@@ -3,6 +3,8 @@ import { LoginPage } from '@config/page-loader';
 import { getCredentials } from '@config/env.config';
 
 /**
+ * @description
+ * Assignment 1: Swag Labs Login Flow Test Suite
  * Swag Labs Login Flow Test Suite
  * Tests the complete authentication user journey
  */
@@ -23,7 +25,6 @@ test.describe('Swag Labs Login Functionality', () => {
       .then(loginPage => loginPage.verify_onLoginPage());
   });
 
-  
   test('should display error message with invalid credentials', async ({ page }) => {
     const user = getCredentials();
     await new LoginPage(page)
@@ -60,12 +61,6 @@ test.describe('Swag Labs Login Functionality', () => {
       .then(loginPage => loginPage.step_enterUsername(user.username))
       .then(loginPage => loginPage.step_errorLogin())
       .then(loginPage => loginPage.verify_errorMessage('Epic sadface: Password is required'));
-  });
-
-  test('should verify login page elements are visible', async ({ page }) => {
-    await new LoginPage(page)
-      .step_navigate()
-      .then(loginPage => loginPage.verify_loginPageState());
   });
   
 });

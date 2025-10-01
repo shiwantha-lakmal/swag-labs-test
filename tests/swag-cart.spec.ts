@@ -3,6 +3,8 @@ import { LoginPage } from '@config/page-loader';
 import { getCredentials } from '@config/env.config';
 
 /**
+ * @description
+ * Assignment 1: Swag Labs Cart Flow Test Suite
  * Swag Labs Cart Flow Test Suite
  * Tests the shopping cart functionality and item management
  */

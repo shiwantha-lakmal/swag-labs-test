@@ -23,8 +23,8 @@ End-to-end test automation framework for Swag Labs application using Playwright.
 swag-labs-test/
 ├── src/
 │   ├── config/         # Environment, data, and page loader configurations
-│   ├── api/           # API clients and base classes
-│   └── gui/            # GUI components
+│   ├── api/            # API clients and base classes
+│   └── gui/            # UI components
 │       ├── pages/      # Page objects with fluent API
 │       └── panels/     # Reusable UI components (MenuPanel)
 ├── tests/              # Test specifications (UI and API)
@@ -36,13 +36,12 @@ swag-labs-test/
 
 The framework includes API testing capabilities using Playwright's API testing features:
 
-### Features
-- **Base Client**: Reusable HTTP client with error handling
-- **Pet Store API**: Example implementation for Petstore API v2
-- **Test Data Generation**: Dynamic test data using @faker-js/faker
-- **Response Validation**: Type-safe response handling
-- **Status Code Verification**: Automatic status code logging
-- **JSON Output**: Formatted response data display
+### Context
+- **BaseClient**: Reusable HTTP client with methods templates
+- **PetClient**: Implementation for Petstore API v2
+- **data.config.ts**: Dynamic test data using @faker-js/faker
+- **api-pet.spec.ts**: Test coverage
+
 
 ### Results API Test
 ```typescript
@@ -58,14 +57,14 @@ Fetched Pet Details (ID: 2768):
   "tags": "oddball",
   "photoUrls": "Yes"
 }
-  ✓  1 [chromium] › tests/api-pet.spec.ts:17:7 › Pet Store API Tests › should create and fetch a pet by ID (3.0s
+  ✓  1 [chromium] › tests/api-pet.spec.ts:17:7 › Pet Store API Tests › should create and fetch a pet by ID (3.0s)
 ```
 
 ## Best Practices
 
 1. **API Testing**
-   - Use base client for common functionality
-   - Implement type-safe response interfaces
+   - Use base-client and service-client to maintain extensibility
+   - Fluent test-level (readable)
    - Generate dynamic test data
    - Handle API errors gracefully
    - Log response status codes
@@ -182,23 +181,8 @@ The Allure report includes:
 
 ## CI/CD Pipeline
 
-### GitHub Actions
-The project includes a CI/CD pipeline that:
-- Runs tests in parallel with 2 workers (sharded execution)
-- Executes on push to `main` and `develop` branches
-- Runs on pull requests
-- Generates and deploys Allure reports to GitHub Pages
-- Uploads test artifacts for 30 days
+GitHub Actions workflow runs UI tests in parallel (2 shards) on PR/push to main. Tests run headless in Chromium with required checks for merging. Test artifacts retained for 7 days.
 
-### Pipeline Features
-- **Parallel Execution**: Tests split across 2 workers for faster execution
-- **Environment**: Runs tests against staging environment
-- **Artifacts**: Test results and Allure reports saved
-- **Report Deployment**: Automatic deployment to GitHub Pages
-- **Manual Trigger**: Can be triggered manually via workflow_dispatch
-
-### Viewing CI Reports
-After pipeline execution, view the Allure report at:
-```
-https://<your-username>.github.io/<repository-name>
+```yaml
+npm run ui:headless -- --shard=${{ matrix.shard }}/2
 ```

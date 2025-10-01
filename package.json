@@ -14,14 +14,6 @@
     "gen:report": "allure serve allure-results",
     "audit": "tsc --noEmit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shiwantha-lakmal/swag-labs-test.git"
-  },
-  "keywords": [
-    "playwright",
-    "swag-labs"
-  ],
   "author": "Shiwantha Lakmal",
   "license": "ISC",
   "homepage": "https://github.com/shiwantha-lakmal/swag-labs-test#readme",
