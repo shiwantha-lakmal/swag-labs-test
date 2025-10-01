@@ -66,8 +66,8 @@ swag-labs-test/
 test('should login successfully', async ({ page }) => {
   await new LoginPage(page)
     .navigate()
-    .then(page => page.enterUsername('Admin'))
-    .then(page => page.enterPassword('admin123'))
+    .then(page => page.enterUsername('xxxx'))
+    .then(page => page.enterPassword('xxxx'))
     .then(page => page.clickLogin())
     .then(home => home.verifyBrowserState());
 });
