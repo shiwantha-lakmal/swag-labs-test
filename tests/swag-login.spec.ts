@@ -1,4 +1,4 @@
-import { test } from '../src/config/page';
+import { test } from '../src/config/page.config';
 import { getCredentials } from '@config/env.config';
 
 /**

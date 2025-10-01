@@ -1,7 +1,6 @@
 import { test as base, expect } from '@playwright/test';
 import { LoginPage, ProductPage, CartPage, MenuPanel } from '@config/page-loader';
 
-
 type MyFixtures = {
   loginPage: LoginPage;
   productPage: ProductPage;
@@ -30,10 +29,6 @@ const test = base.extend<MyFixtures>({
     const menuPanel = new MenuPanel(page);
     await use(menuPanel);
   }
-
-
-
 });
 
 export { test, expect };
-
