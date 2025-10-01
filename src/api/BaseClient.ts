@@ -135,10 +135,4 @@ export class BaseClient {
       .join('&');
   }
 
-  /**
-   * Dispose API context
-   */
-  public async dispose(): Promise<void> {
-    // No cleanup needed for fetch
-  }
 }
