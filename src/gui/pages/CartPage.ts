@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { BasePage, MenuPanel, LoginPage, ProductPage } from '@config/page-loader';
+import { BasePage, MenuPanel, LoginPage, ProductPage } from '@config/loader.config';
 
 /**
  * CartPage class represents the Swag Labs shopping cart page.

@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { BasePage, ProductPage } from '@config/page-loader';
+import { BasePage, ProductPage } from '@config/loader.config';
 import { getBaseURL } from '@config/env.config';
 
 /**

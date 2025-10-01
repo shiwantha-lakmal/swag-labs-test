@@ -1,5 +1,5 @@
 import { test as base, expect } from '@playwright/test';
-import { LoginPage, ProductPage, CartPage, MenuPanel } from '@config/page-loader';
+import { LoginPage, ProductPage, CartPage, MenuPanel } from '@config/loader.config';
 
 type MyFixtures = {
   loginPage: LoginPage;
