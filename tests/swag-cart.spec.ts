@@ -18,7 +18,8 @@ test.describe('Swag Labs Cart Functionality', () => {
       .then(loginPage => loginPage.step_enterPassword(user.password))
       .then(loginPage => loginPage.step_clickLogin())
       .then(productPage => productPage.verify_productsPageLoaded())
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'));
+      .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
+      .then(productPage => productPage.verify_cartBadgeCount('1'));
   });
 
   test('should add multiple products to cart successfully', async ({ page }) => {
@@ -31,7 +32,8 @@ test.describe('Swag Labs Cart Functionality', () => {
       .then(loginPage => loginPage.step_clickLogin())
       .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
       .then(productPage => productPage.step_addProductToCart('Sauce Labs Bike Light'))
-      .then(productPage => productPage.step_addProductToCart('Sauce Labs Bolt T-Shirt'));
+      .then(productPage => productPage.step_addProductToCart('Sauce Labs Bolt T-Shirt'))
+      .then(productPage => productPage.verify_cartBadgeCount('3'));
   });
 
 
@@ -45,8 +47,9 @@ test.describe('Swag Labs Cart Functionality', () => {
       .then(loginPage => loginPage.step_clickLogin())
       .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
       .then(productPage => productPage.verify_itemButtonText('Sauce Labs Backpack', 'Remove'))
+      .then(productPage => productPage.verify_cartBadgeCount('1'))
       .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
-      .then(productPage => productPage.verify_itemButtonText('Sauce Labs Backpack', 'Add to cart'));
+      .then(productPage => productPage.verify_itemButtonText('Sauce Labs Backpack', 'Add to cart'))
   });
 
   test('should the cart items be listed under the my-cart page', async ({ page }) => {
@@ -76,7 +79,7 @@ test.describe('Swag Labs Cart Functionality', () => {
       .then(productPage => productPage.step_addProductToCart('Sauce Labs Backpack'))
       .then(productPage => productPage.verify_cartBadgeCount('1'))
       .then(productPage => productPage.step_navigateToCart())
-      .then(cartPage => cartPage.verify_itemInCart('Sauce Labs Backpack'))
+      .then(cartPage => cartPage.step_removeItem('Sauce Labs Backpack'))
       .then(cartPage => cartPage.verify_cartBadgeCount('0'));
   });
 

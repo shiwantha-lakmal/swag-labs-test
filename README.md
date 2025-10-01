@@ -52,6 +52,13 @@ swag-labs-test/
    - Use TypeScript for type safety
    - Configure timeouts in playwright.config.ts
    - Set environment-specific settings in env.config.ts
+   - Enable console logging for real-time test feedback
+
+4. **Reporting**
+   - Use multiple reporters for different purposes
+   - List reporter for console output
+   - HTML reporter for detailed test results
+   - Allure reporter for comprehensive test reports
 
 ## Example Test
 
@@ -95,6 +102,19 @@ ENV=stage npm run ui:desktop
 
 # Run device tests against production
 ENV=prod npm run ui:devices
+```
+
+## Console Output
+
+The framework includes real-time console logging during test execution:
+
+```bash
+Running 6 tests using 1 worker
+
+  ✓ [chromium] › swag-login.spec.ts:12:3 › should login successfully (3.2s)
+  ✓ [chromium] › swag-cart.spec.ts:11:3 › should add single product to cart (2.8s)
+  
+6 passed (18.5s)
 ```
 
 ## Test Reports

@@ -9,6 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   
   reporter: [
+    ['list'],
     ['html', { outputFolder: 'test-results', open: 'never' }],
     ['allure-playwright']
   ],
